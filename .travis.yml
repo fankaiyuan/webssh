@@ -9,10 +9,10 @@ services:
 script:
   - export DOCKER_CLI_EXPERIMENTAL=enabled
   - source sha_function.sh
-  - flag_alpine=$(is_base "treehouses/alpine:latest" "treehouses/nginx:latest")
+  - flag_alpine=$(is_base "treehouses/alpine:latest" "kaiyfan/webssh:latest")
   - echo $flag_alpine
-  - version2=$(image_version treehouses/nginx:latest)
-  - echo "treehouses version is $version2"
+#  - version2=$(image_version treehouses/webssh:latest)
+#  - echo "treehouses version is $version2"
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
   - "./docker-build.sh treehouses/alpine:latest arm"
