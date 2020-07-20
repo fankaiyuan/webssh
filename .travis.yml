@@ -1,4 +1,5 @@
 sudo: required
+dist: bionic
 addons:
   apt:
     update: true
@@ -11,7 +12,7 @@ script:
 - source sha_function.sh
 - flag_alpine=$(is_base "treehouses/alpine:latest" "kaiyfan/webssh:latest")
 - echo $flag_alpine
-- docker login -u kaiyfan -p $DOCKER_PASSWORD
+- echo $DOCKERAPIKEY | docker login -u "kaiyfan" --password-stdin
 - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 - "./docker-build.sh treehouses/alpine:latest arm"
 - flag=$(compare "treehouses/alpine:latest" "kaiyfan/webssh:latest")
@@ -35,3 +36,4 @@ deploy:
 env:
   global:
     secure: l5nnyk5Ekgi1S5jzxfngi8z1UHlYyXIpTHoUMMya9JsB/kiqR/AlUav26W6P910ExEwPE70LH9LCty1+ncmA/dn+fyYowyLUNPsUw1PoX+Wzbxv2dM/b2KT8k6Ez714owqApDqq3nLGCtwMpfdGrvQUUyadPAww34pD4rLJQnSqebc1mn4/j0lkVYt8qcF/hS0up9IcrWZ5yNiXTBbrulfip/MWY1Oai0ifcw6zYhbvPFXtSkwbRRto7T4K6J5u3n8FlPNiHdRUKryL6sLXWqIOjPT52yBDq29CoSrFaIMaPm5KLIMFN+dg/qP72LXLCDm+iNPVL5rNV2/Xy2rgVmnNZvm9Kmgy6CXIUZEu7CRTQlq3FvY/LjxFGKlY2hvsuWTAAv6+PRe/eh4J/MctaBOAT1bqaoOJ3P80axbtF8rup+wdniLRZ2grgKylAX7EnDeRxtZsF++d6cNbiN08nh2RLlK1pALDx6XjBFAhUIhMr7noTZQAsTeLscnXHt8yihbKiRLr/tW+Zru+36uSDeYwDDBVBb3+3f1S8kYRtGx2zFR5GZeV4NS1unIfCsKxOPbpKafeBsooYf8S9yxuc6h1CFh3sR1ax8gJl5+BJ8K0ZrRYe38ulGz+Jb2m4sVmDnsjAEEXdAzXs9r11Wox5+ngDGO7UlSQLcJ03NoJqXjQ=
+
