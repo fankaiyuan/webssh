@@ -30,16 +30,9 @@ is_base (){
     echo "$found"
 }
 
-compare (){
-    result=$(is_base $1 $2)
-    echo $result
-    if [[ $result == "true" ]]
-    then
-        echo "true"
-    else
-        echo "false"
-    fi
-}
+#compare (){
+#    result=$(is_base $1 $2)
+#}
 
 create_manifest (){
     local repo=$1 #kaiyfan/webssh

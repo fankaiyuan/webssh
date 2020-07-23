@@ -17,7 +17,7 @@ script:
 - "./docker-build.sh treehouses/alpine:latest arm"
 - "./docker-build.sh treehouses/alpine:latest amd64"
 - "./docker-build.sh treehouses/alpine:latest arm64"
-- flag=$(compare "treehouses/alpine:latest" "kaiyfan/webssh:latest")
+- flag=$(is_base "treehouses/alpine:latest" "kaiyfan/webssh:latest")
 - echo $flag
 before_deploy:
 - tag_time=$(date +%Y%m%d%H%M)
