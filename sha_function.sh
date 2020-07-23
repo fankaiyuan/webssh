@@ -30,13 +30,6 @@ is_base (){
     echo "$found"
 }
 
-#image_version(){
-#    local version
-#    repo=$1    # webssh repo
-#    version=$(docker run -it $1 /bin/sh -c "webssh -v" |awk '{print$3}')
-#    echo $version
-#}
-
 compare (){
     result=$(is_base $1 $2)
     #version1=$(image_version $3)
