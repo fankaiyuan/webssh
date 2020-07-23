@@ -1,7 +1,9 @@
+#!/usr/bin/env bash
 get_manifest_sha (){
     local repo=$1     # <source>/alpine:latest
     local arch=$2     # arm
-    docker pull -q $1 &>/dev/null
+    #docker pull -q $1 &>/dev/null
+    docker pull $1
     docker manifest inspect $1 > "$2".txt
     sha=""
     i=0
@@ -14,6 +16,5 @@ get_manifest_sha (){
         fi
         i=$i+1
     done < "$2".txt
-
 }
 get_manifest_sha $@

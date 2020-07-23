@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -x
+
 get_sha(){
     repo=$1
     docker pull $1 &>/dev/null
@@ -20,7 +20,7 @@ is_base (){
     found="true"
     for i in $base_sha; do
         for j in $image_sha; do
-            if [ "$i" = "$j" ]; then
+            if [[ $i = $j ]]; then
                 #echo "no change, same base image: $i"
                 found="false"
                 break
@@ -51,11 +51,17 @@ compare (){
 
 create_manifest (){
     local repo=$1
-    local tag1=$2 #latest
-    local tag2=$3 #timetag
-    local rpi=$4  #arm
-    docker manifest create $repo:$tag1 $rpi
-    docker manifest create $repo:$tag2 $rpi
-    docker manifest annotate $repo:$tag1 $rpi --arch arm
-    docker manifest annotate $repo:$tag2 $rpi --arch arm
+    local tag_latest=$2 #latest
+    local tag_time=$3 #timetag
+    local tag_arm=$4  #arm
+    local tag_x86=$5
+    local tag_arm64=$6
+    docker manifest create $repo:$tag_latest $tag_arm $tag_x86 $tag_arm64
+    docker manifest create $repo:$tag_time $tag_arm $tag_x86 $tag_arm64
+    docker manifest annotate $repo:tag_latest $tag_arm --arch arm
+    docker manifest annotate $repo:tag_latest $tag_x86 --arch amd64
+    docker manifest annotate $repo:tag_latest $tag_arm64 --arch arm64
+    docker manifest annotate $repo:tag_time $tag_arm --arch arm
+    docker manifest annotate $repo:tag_time $tag_x86 --arch amd64
+    docker manifest annotate $repo:tag_time $tag_arm64 --arch arm64
 }
