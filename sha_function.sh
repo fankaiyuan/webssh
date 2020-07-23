@@ -32,9 +32,8 @@ is_base (){
 
 compare (){
     result=$(is_base $1 $2)
-    #version1=$(image_version $3)
-    #version2=$(image_version $4)
-    if [ $result == "true" ]#|| [ "$version1" != "$version2" ];
+    echo $result
+    if [[ $result == "true" ]]
     then
         echo "true"
     else
