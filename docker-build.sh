@@ -12,7 +12,7 @@ base_image="treehouses/alpine@$sha"
 echo $base_image
 arch=$2   # arm arm64 amd64
 
-if [[ -n $sha ]]; then
+if [ -n "$sha" ]; then
         tag=kaiyfan/webssh-tags:$arch
         echo $tag
         sed "s|{{base_image}}|$base_image|g" Dockerfile.template > Dockerfile.$arch
