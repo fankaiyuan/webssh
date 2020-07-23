@@ -43,10 +43,10 @@ compare (){
 }
 
 create_manifest (){
-    local repo=$1
+    local repo=$1 #kaiyfan/webssh
     local tag_latest=$2 #latest
     local tag_time=$3 #timetag
-    local tag_arm=$4  #arm
+    local tag_arm=$4  #kaiyfan/webssh-tags:arm
     local tag_x86=$5
     local tag_arm64=$6
     docker manifest create $repo:$tag_latest $tag_arm $tag_x86 $tag_arm64
