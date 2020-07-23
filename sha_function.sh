@@ -43,10 +43,10 @@ create_manifest (){
     local tag_arm64=$6
     docker manifest create $repo:$tag_latest $tag_arm $tag_x86 $tag_arm64
     docker manifest create $repo:$tag_time $tag_arm $tag_x86 $tag_arm64
-    docker manifest annotate $repo:tag_latest $tag_arm --arch arm
-    docker manifest annotate $repo:tag_latest $tag_x86 --arch amd64
-    docker manifest annotate $repo:tag_latest $tag_arm64 --arch arm64
-    docker manifest annotate $repo:tag_time $tag_arm --arch arm
-    docker manifest annotate $repo:tag_time $tag_x86 --arch amd64
-    docker manifest annotate $repo:tag_time $tag_arm64 --arch arm64
+    docker manifest annotate $repo:$tag_latest $tag_arm --arch arm
+    docker manifest annotate $repo:$tag_latest $tag_x86 --arch amd64
+    docker manifest annotate $repo:$tag_latest $tag_arm64 --arch arm64
+    docker manifest annotate $repo:$tag_time $tag_arm --arch arm
+    docker manifest annotate $repo:$tag_time $tag_x86 --arch amd64
+    docker manifest annotate $repo:$tag_time $tag_arm64 --arch arm64
 }
