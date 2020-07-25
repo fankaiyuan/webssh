@@ -6,9 +6,8 @@ get_sha(){
     #sha=$(docker image inspect $1 |jq .[0].RootFS.Layers |grep sha)
     sha=$(docker image inspect $1 | jq --raw-output '.[0].RootFS.Layers|.[]')   # [0] means first element of list,[]means all the elments of lists
     echo $sha
-    #read -a base_sha <<< $base_sha
-    #sha_arr=($sha)
 }
+
 is_base (){
     local base_sha    # alpine
     local image_sha   # new image
@@ -30,9 +29,26 @@ is_base (){
     echo "$found"
 }
 
-#compare (){
-#    result=$(is_base $1 $2)
-#}
+get_service_version(){
+    local version
+    repo=$1
+    docker run -p 8888:8888 -d $repo
+    container_id=$(docker ps | grep "webssh" | awk '{print$1;}')
+    version=$(docker exec -it container_id wssh --version)
+    echo $version
+}
+
+compare (){
+    result=$(is_base $1 $2)
+    version1=$(get_service_version $3)
+    version2=$(get_service_version $4)
+    if [ $result == "true" ] || [ "$version1" != "$version2" ]; #compare alpine and service versions
+    then
+        echo "true"
+    else
+        echo "false"
+    fi
+}
 
 create_manifest (){
     local repo=$1 #kaiyfan/webssh
