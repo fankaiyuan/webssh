@@ -34,7 +34,8 @@ get_service_version(){
     repo=$1
     docker run -p 8888:8888 -d $repo
     container_id=$(docker ps | grep "webssh" | awk '{print$1;}')
-    version=$(docker exec -it container_id wssh --version)
+    echo $container_id
+    version=$(docker exec -it $container_id wssh --version)
     echo $version
 }
 
