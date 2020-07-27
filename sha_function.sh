@@ -18,12 +18,12 @@ is_base (){
     for i in $base_sha; do
         for j in $image_sha; do
             if [[ $i = $j ]]; then
-                true    #same base image
+                echo "false"    #same base image
                 break
             fi
         done
     done
-    false
+    echo "true"
 }
 
 get_service_version(){
@@ -39,7 +39,7 @@ get_service_version(){
 compare (){
     version1=$(get_service_version $3)
     version2=$(get_service_version $4)
-    if [ !$(is_base $1 $2) ] || [ "$version1" != "$version2" ];     #compare alpine and service versions
+    if [ $(is_base $1 $2) == "true" ] || [ "$version1" != "$version2" ];     #compare alpine and service versions
     then
         echo "true"
     else
