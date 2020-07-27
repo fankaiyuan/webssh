@@ -14,13 +14,11 @@ script:
 - echo $flag_alpine
 - echo $DOCKERAPIKEY | docker login -u "kaiyfan" --password-stdin
 - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-- "./docker-build.sh treehouses/alpine:latest arm"
-- "./docker-build.sh treehouses/alpine:latest amd64"
-- "./docker-build.sh treehouses/alpine:latest arm64"
+- "./docker-build.sh treehouses/alpine:latest arm amd64 arm64"
 - flag=$(compare "treehouses/alpine:latest" "kaiyfan/webssh:latest" "kaiyfan/webssh:latest" "kaiyfan/webssh-tags:amd64")
 - echo $flag
 before_deploy:
-- tag_time=$(date +%Y%m%d%H%M)
+- tag_time=$(date +%F@%T)
 - echo $tag_time
 - tag_latest="latest"
 - create_manifest kaiyfan/webssh $tag_latest $tag_time kaiyfan/webssh-tags:arm kaiyfan/webssh-tags:amd64 kaiyfan/webssh-tags:arm64
